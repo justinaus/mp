@@ -1,4 +1,6 @@
-import { Marker, NaverMap, useNavermaps } from 'react-naver-maps';
+import { NaverMap, useNavermaps } from 'react-naver-maps';
+
+import MarkerCluster from './MarkerCluster';
 
 export default function Map() {
   const navermaps = useNavermaps();
@@ -8,7 +10,8 @@ export default function Map() {
       defaultCenter={new navermaps.LatLng(37.3595704, 127.105399)}
       defaultZoom={15}
     >
-      <Marker defaultPosition={new navermaps.LatLng(37.3595704, 127.105399)} />
+      {/* <Marker defaultPosition={new navermaps.LatLng(37.3595704, 127.105399)} /> */}
+      <MarkerCluster />
     </NaverMap>
   );
 }

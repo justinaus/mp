@@ -9,7 +9,7 @@ export default function Maps() {
       Maps!!
       <MapDiv
         style={{
-          height: 400,
+          height: 1000,
         }}
       >
         <Map />
