@@ -54,11 +54,11 @@ export type NaverPlace = {
   // naverBookingUrl: 'https://booking.naver.com/booking/6/bizes/417748';
   rank: string;
   // thumUrl: 'https://ldb-phinf.pstatic.net/20210210_227/16129467345886TMvb_JPEG/XGIsKCofQIHiAODeArFvIYRV.jpeg.jpg';
-  x: string;
-  y: string;
+  lat: string;
+  lng: string;
 };
 
-export type NaverPlaceResponse = {
+export type NaverAllSearchResponse = {
   data?: NaverPlace[];
   success: boolean;
   message?: string;
@@ -66,7 +66,7 @@ export type NaverPlaceResponse = {
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<NaverPlaceResponse>,
+  res: NextApiResponse<NaverAllSearchResponse>,
 ) {
   //   query: 음식점
   // type: all
@@ -90,14 +90,14 @@ export default async function handler(
     const jsonData = await response.json();
 
     const data = jsonData.result.place.list.map(
-      ({ id, michelinGuide, name, rank, x, y }: NaverPlace): NaverPlace =>
+      ({ id, michelinGuide, name, rank, x, y }: any): NaverPlace =>
         ({
           id: id,
           michelinGuide: michelinGuide,
           name: name,
           rank: rank,
-          x: x,
-          y: y,
+          lat: y,
+          lng: x,
         }) as NaverPlace,
     );
 

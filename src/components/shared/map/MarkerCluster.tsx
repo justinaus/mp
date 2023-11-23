@@ -4,7 +4,19 @@ import { Overlay, useMap, useNavermaps } from 'react-naver-maps';
 import { accidentDeath } from './accidentDeath';
 import { makeMarkerClustering } from './marker-cluster';
 
-export default function MarkerCluster() {
+export type NaverPlace = {
+  id: string;
+  name: string;
+  rank: string;
+  lat: string;
+  lng: string;
+};
+
+type Props = {
+  places: NaverPlace[];
+};
+
+export default function MarkerCluster({ places }: Props) {
   // https://github.com/navermaps/marker-tools.js/blob/master/marker-clustering/src/MarkerClustering.js
   // 예제에서 제공된 코드를 그대로 사용하되 naver 객체를 주입 받도록 간단히 makeMarkerClustering로 Wrapping 합니다.
 
@@ -55,9 +67,20 @@ export default function MarkerCluster() {
   const [cluster] = useState(() => {
     const markers = [];
 
-    for (let i = 0, ii = data.length; i < ii; i++) {
-      const spot = data[i],
-        latlng = new naver.maps.LatLng(spot.grd_la, spot.grd_lo),
+    // for (let i = 0, ii = data.length; i < ii; i++) {
+    //   const spot = data[i],
+    //     latlng = new naver.maps.LatLng(spot.grd_la, spot.grd_lo),
+    //     marker = new naver.maps.Marker({
+    //       position: latlng,
+    //       draggable: true,
+    //     });
+
+    //   markers.push(marker);
+    // }
+
+    for (let i = 0, ii = places.length; i < ii; i++) {
+      const spot = places[i],
+        latlng = new naver.maps.LatLng(spot.lat, spot.lng),
         marker = new naver.maps.Marker({
           position: latlng,
           draggable: true,
