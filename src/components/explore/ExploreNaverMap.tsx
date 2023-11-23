@@ -2,8 +2,8 @@ import { useMemo } from 'react';
 import { NaverMap, useNavermaps } from 'react-naver-maps';
 import { useRecoilValue } from 'recoil';
 
+import MarkerCluster from '../map/MarkerCluster';
 import { exploreMapCenterState } from './exploreMapCenterState';
-import MarkerCluster from './MarkerCluster';
 
 export default function ExploreNaverMap() {
   const navermaps = useNavermaps();

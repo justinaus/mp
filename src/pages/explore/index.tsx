@@ -1,13 +1,10 @@
 import { Stack } from '@mui/material';
-import { useCallback, useEffect } from 'react';
+import { useEffect } from 'react';
 import { Container as MapDiv } from 'react-naver-maps';
-import { useRecoilState } from 'recoil';
 
+import ExploreGeolocationButton from '@/components/explore/ExploreGeolocationButton';
+import ExploreNaverMap from '@/components/explore/ExploreNaverMap';
 import PageLayout from '@/components/layout/PageLayout';
-import { exploreMapCenterState } from '@/components/map/exploreMapCenterState';
-import ExploreNaverMap from '@/components/map/ExploreNaverMap';
-import GeolocationButton from '@/components/map/GeolocationButton';
-import { LatLng } from '@/components/map/types';
 
 export default function Maps() {
   useEffect(() => {
@@ -15,20 +12,6 @@ export default function Maps() {
       `/api/naver/search/allSearch?query=%EC%9D%8C%EC%8B%9D%EC%A0%90&type=all&searchCoord=127.10845479999955%3B37.367722699999945&boundary=`,
     );
   }, []);
-
-  const [exploreMapCenter, setExploreMapCenter] = useRecoilState(
-    exploreMapCenterState,
-  );
-
-  const handleGetGeolocationPosition = useCallback(
-    (latLng: LatLng) => {
-      setExploreMapCenter((originData) => ({
-        ...originData,
-        ...latLng,
-      }));
-    },
-    [setExploreMapCenter],
-  );
 
   return (
     <PageLayout>
@@ -50,9 +33,7 @@ export default function Maps() {
             alignItems: 'flex-end',
           }}
         >
-          <GeolocationButton
-            onGetGeolocationPosition={handleGetGeolocationPosition}
-          />
+          <ExploreGeolocationButton />
         </Stack>
       </MapDiv>
     </PageLayout>

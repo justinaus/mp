@@ -3,7 +3,7 @@ import { atom } from 'recoil';
 import { DEFAULT_LAT_LNG, DEFAULT_MAP_ZOOM } from '@/constants/map';
 import { recoilPersist } from '@/utils/persistState';
 
-import { LatLng } from './types';
+import { LatLng } from '../map/types';
 
 const { persistAtom: persistExploreMapCenter } = recoilPersist({
   key: 'persistHomeMapCenter',
