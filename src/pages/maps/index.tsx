@@ -1,12 +1,12 @@
-import { Box, Stack } from '@mui/material';
+import { Stack } from '@mui/material';
 import { useCallback, useEffect } from 'react';
 import { Container as MapDiv } from 'react-naver-maps';
 import { useRecoilState } from 'recoil';
 
 import PageLayout from '@/components/layout/PageLayout';
 import { exploreMapCenterState } from '@/components/map/exploreMapCenterState';
+import ExploreNaverMap from '@/components/map/ExploreNaverMap';
 import GeolocationButton from '@/components/map/GeolocationButton';
-import MapContainer from '@/components/map/MapContainer';
 import { LatLng } from '@/components/map/types';
 
 export default function Maps() {
@@ -32,21 +32,12 @@ export default function Maps() {
 
   return (
     <PageLayout>
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
+      <MapDiv
+        style={{
           flex: 1,
-          position: 'relative',
         }}
       >
-        <MapDiv
-          style={{
-            flex: 1,
-          }}
-        >
-          <MapContainer />
-        </MapDiv>
+        <ExploreNaverMap />
         <Stack
           spacing={3}
           sx={{
@@ -63,7 +54,7 @@ export default function Maps() {
             onGetGeolocationPosition={handleGetGeolocationPosition}
           />
         </Stack>
-      </Box>
+      </MapDiv>
     </PageLayout>
   );
 }
