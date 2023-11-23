@@ -1,4 +1,4 @@
-import { useMemo, useRef } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import { Overlay, useMap } from 'react-naver-maps';
 
 import { CustomOverlay } from './CustomOverlay';
@@ -14,6 +14,12 @@ export default function MpOverlay({ restaurant }: Props) {
 
   // 마커를 한번만 생성하기 위해 useRef 사용
   const overlayRef = useRef<CustomOverlay<Restaurant> | null>(null);
+
+  useEffect(() => {
+    return () => {
+      overlayRef.current?.setMap(null);
+    };
+  }, []);
 
   if (!map) return null;
 
