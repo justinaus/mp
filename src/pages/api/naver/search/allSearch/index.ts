@@ -1,6 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import queryString from 'query-string';
 
+import { LatLng } from '@/components/shared/map/types';
+
 // abbrAddress: '정자동 66-11 1층';
 // address: '경기도 성남시 분당구 정자동 66-11 1층';
 // bizhourInfo: '영업 종료';
@@ -54,8 +56,9 @@ export type NaverPlace = {
   // naverBookingUrl: 'https://booking.naver.com/booking/6/bizes/417748';
   rank: string;
   // thumUrl: 'https://ldb-phinf.pstatic.net/20210210_227/16129467345886TMvb_JPEG/XGIsKCofQIHiAODeArFvIYRV.jpeg.jpg';
-  lat: string;
-  lng: string;
+  latLng: LatLng;
+
+  // emoji?: string;
 };
 
 export type NaverAllSearchResponse = {
@@ -96,8 +99,10 @@ export default async function handler(
           michelinGuide: michelinGuide,
           name: name,
           rank: rank,
-          lat: y,
-          lng: x,
+          latLng: {
+            lat: y,
+            lng: x,
+          },
         }) as NaverPlace,
     );
 

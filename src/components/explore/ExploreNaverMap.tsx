@@ -6,7 +6,7 @@ import { useRecoilValue } from 'recoil';
 
 import { NaverAllSearchResponse } from '@/pages/api/naver/search/allSearch';
 
-import MarkerCluster from '../shared/map/MarkerCluster';
+import MpOverlay from '../shared/map/MpOverlay';
 import { exploreMapCenterState } from './exploreMapCenterState';
 
 export default function ExploreNaverMap() {
@@ -37,7 +37,8 @@ export default function ExploreNaverMap() {
   return (
     <NaverMap center={center} zoom={mapCenter.zoom}>
       {/* <Marker defaultPosition={new navermaps.LatLng(37.3595704, 127.105399)} /> */}
-      {data?.data && <MarkerCluster places={data.data} />}
+      {data?.data &&
+        data?.data.map((item) => <MpOverlay key={item.id} restaurant={item} />)}
     </NaverMap>
   );
 }
