@@ -2,7 +2,7 @@ import { NaverMap, useNavermaps } from 'react-naver-maps';
 
 import MarkerCluster from './MarkerCluster';
 
-export default function Map() {
+export default function MapContainer() {
   const navermaps = useNavermaps();
 
   return (
