@@ -29,7 +29,7 @@ export default function Maps() {
             bottom: 20,
             paddingBottom: 4,
             paddingRight: 4,
-            zIndex: 1050,
+            zIndex: 100,
             alignItems: 'flex-end',
           }}
         >
