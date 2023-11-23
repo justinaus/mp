@@ -3,6 +3,8 @@
 import Button from '@mui/material/Button';
 import Head from 'next/head';
 
+import SwipeableEdgeDrawer from './explore/SwipeableEdgeDrawer';
+
 export default function Home() {
   return (
     <>
@@ -14,6 +16,7 @@ export default function Home() {
       </Head>
       <main>
         Hello<Button variant="contained">Click</Button>
+        <SwipeableEdgeDrawer />
       </main>
     </>
   );
