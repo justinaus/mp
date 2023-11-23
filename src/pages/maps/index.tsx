@@ -1,8 +1,8 @@
-import { Box } from '@mui/material';
 import { useEffect } from 'react';
 import { Container as MapDiv } from 'react-naver-maps';
 
-import Map from '@/components/map/Map';
+import PageLayout from '@/components/layout/PageLayout';
+import MapContainer from '@/components/map/MapContainer';
 
 export default function Maps() {
   useEffect(() => {
@@ -12,15 +12,14 @@ export default function Maps() {
   }, []);
 
   return (
-    <Box>
-      Maps!!
+    <PageLayout>
       <MapDiv
         style={{
-          height: 1000,
+          flex: 1,
         }}
       >
-        <Map />
+        <MapContainer />
       </MapDiv>
-    </Box>
+    </PageLayout>
   );
 }
