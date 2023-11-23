@@ -1,7 +1,7 @@
 import MyLocationIcon from '@mui/icons-material/MyLocation';
 import { useCallback } from 'react';
 
-import TransparentOutlinedIconButton from '../shared/buttons/TransparentOutlinedIconButton';
+import TransparentOutlinedIconButton from '../buttons/TransparentOutlinedIconButton';
 import { LatLng } from './types';
 
 type Props = {

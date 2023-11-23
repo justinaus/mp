@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { NaverMap, useNavermaps } from 'react-naver-maps';
 import { useRecoilValue } from 'recoil';
 
-import MarkerCluster from '../map/MarkerCluster';
+import MarkerCluster from '../shared/map/MarkerCluster';
 import { exploreMapCenterState } from './exploreMapCenterState';
 
 export default function ExploreNaverMap() {
