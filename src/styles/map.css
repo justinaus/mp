@@ -1,0 +1,49 @@
+.naver-marker-container {
+  display: flex;
+  flex-direction: column;
+  width: 100px;
+  align-items: center;
+  margin-left: -50px;
+  margin-top: -40px;
+
+}
+.naver-marker-place {
+  width: 32px;
+  height: 40px;
+  background-image: url("/assets/fmd_good_black_24dp.svg");
+  background-size: 32px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+          align-items: center;
+}
+
+/* TODO. */
+.naver-marker-place-blue-image {
+  background-image: url("/assets/fmd_good_blue_24dp.svg");
+}
+
+.naver-marker-place .emoji {
+  padding-bottom: 6px;
+  font-size: 22px;
+}
+
+.naver-marker-name {
+  max-width: 100px;
+  text-align: center;
+  font-size: 11px;
+  font-weight: bold;
+  line-height: 18px;
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  background-color: #ffffff90;
+  padding-left: 4px;
+  padding-right: 4px;
+  border-radius: 4px;
+}
