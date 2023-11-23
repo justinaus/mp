@@ -6,6 +6,7 @@ import { useRecoilState } from 'recoil';
 import { useDebouncedCallback } from 'use-debounce';
 
 import { NaverAllSearchResponse } from '@/pages/api/naver/search/allSearch';
+import { getIsMobileDevice } from '@/utils/device';
 
 import MpOverlay from '../shared/map/MpOverlay';
 import { exploreMapCenterState } from './exploreMapCenterState';
@@ -59,6 +60,10 @@ export default function ExploreNaverMap() {
     <NaverMap
       center={center}
       zoom={mapCenter.zoom}
+      zoomControl={!getIsMobileDevice()}
+      zoomControlOptions={{
+        position: navermaps.Position.LEFT_BOTTOM,
+      }}
       onCenterChanged={handleCenterChanged}
     >
       {/* <Marker defaultPosition={new navermaps.LatLng(37.3595704, 127.105399)} /> */}
