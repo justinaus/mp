@@ -2,34 +2,16 @@ import { Global } from '@emotion/react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { grey } from '@mui/material/colors';
-import CssBaseline from '@mui/material/CssBaseline';
 import Skeleton from '@mui/material/Skeleton';
 import { styled } from '@mui/material/styles';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
 
-const drawerBleeding = 46;
-
-interface Props {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
-  window?: () => Window;
-}
-
-const Root = styled('div')(({ theme }) => ({
-  height: '100%',
-  backgroundColor:
-    theme.palette.mode === 'light'
-      ? grey[100]
-      : theme.palette.background.default,
-}));
+const drawerBleeding = 56;
 
 const StyledBox = styled(Box)(({ theme }) => ({
-  // backgroundColor: theme.palette.mode === 'light' ? '#fff' : grey[800],
-  backgroundColor: theme.palette.primary.main,
+  backgroundColor: theme.palette.mode === 'light' ? '#fff' : grey[800],
 }));
 
 const Puller = styled(Box)(({ theme }) => ({
@@ -42,26 +24,23 @@ const Puller = styled(Box)(({ theme }) => ({
   left: 'calc(50% - 15px)',
 }));
 
-export default function SwipeableEdgeDrawer(props: Props) {
-  const { window } = props;
+export default function SwipeableEdgeDrawer() {
   const [open, setOpen] = React.useState(false);
 
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
   };
 
-  // This is used only for the example
-  const container =
-    window !== undefined ? () => window().document.body : undefined;
-
   return (
-    <Root>
-      <CssBaseline />
+    <>
       <Global
         styles={{
           '.MuiDrawer-root > .MuiPaper-root': {
-            height: `calc(50% - ${drawerBleeding}px)`,
+            height: `calc(70% - ${drawerBleeding}px)`,
             overflow: 'visible',
+          },
+          '.MuiDrawer-root > .MuiBackdrop-root': {
+            opacity: '0 !important',
           },
         }}
       />
@@ -69,7 +48,6 @@ export default function SwipeableEdgeDrawer(props: Props) {
         <Button onClick={toggleDrawer(true)}>Open</Button>
       </Box>
       <SwipeableDrawer
-        container={container}
         anchor="bottom"
         open={open}
         onClose={toggleDrawer(false)}
@@ -89,20 +67,16 @@ export default function SwipeableEdgeDrawer(props: Props) {
             visibility: 'visible',
             right: 0,
             left: 0,
+
+            boxShadow: '0px -4px 16px rgba(0,0,0,0.1)',
+
+            height: drawerBleeding,
           }}
         >
           <Puller />
           <Typography sx={{ p: 2, color: 'text.secondary' }}>
             51 results
           </Typography>
-          <div>111</div>
-          <div>222</div>
-          <div>333</div>
-          <div>111</div>
-          <div>222</div>
-          <div>333</div>
-          <div>111</div>
-          <div>222</div>
         </StyledBox>
         <StyledBox
           sx={{
@@ -115,6 +89,6 @@ export default function SwipeableEdgeDrawer(props: Props) {
           <Skeleton variant="rectangular" height="100%" />
         </StyledBox>
       </SwipeableDrawer>
-    </Root>
+    </>
   );
 }
