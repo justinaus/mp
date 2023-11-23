@@ -1,6 +1,8 @@
 import '@/styles/globals.css';
 
 import { CssBaseline, ThemeProvider } from '@mui/material';
+import { QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { useCallback } from 'react';
@@ -8,6 +10,7 @@ import { ErrorBoundary } from 'react-error-boundary';
 import { NavermapsProvider } from 'react-naver-maps';
 import { RecoilRoot } from 'recoil';
 
+import { queryClient } from '@/helpers/query';
 import { theme } from '@/styles/theme';
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -30,19 +33,23 @@ export default function App({ Component, pageProps }: AppProps) {
       </Head>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <RecoilRoot>
-          <NavermapsProvider
-            ncpClientId={process.env.NAVER_CLIENT_ID}
-            // or finClientId, govClientId
-          >
-            <ErrorBoundary
-              fallback={<div>Something went wrong</div>}
-              onError={handlePageError}
+        <QueryClientProvider client={queryClient}>
+          <RecoilRoot>
+            <NavermapsProvider
+              ncpClientId={process.env.NAVER_CLIENT_ID}
+              // or finClientId, govClientId
             >
-              <Component {...pageProps} />
-            </ErrorBoundary>
-          </NavermapsProvider>
-        </RecoilRoot>
+              <ErrorBoundary
+                fallback={<div>Something went wrong</div>}
+                onError={handlePageError}
+              >
+                <Component {...pageProps} />
+              </ErrorBoundary>
+            </NavermapsProvider>
+          </RecoilRoot>
+          {/* The rest of your application */}
+          <ReactQueryDevtools initialIsOpen={false} />
+        </QueryClientProvider>
       </ThemeProvider>
     </>
   );
