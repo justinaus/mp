@@ -58,7 +58,7 @@ export type NaverPlace = {
   // thumUrl: 'https://ldb-phinf.pstatic.net/20210210_227/16129467345886TMvb_JPEG/XGIsKCofQIHiAODeArFvIYRV.jpeg.jpg';
   latLng: LatLng;
 
-  // emoji?: string;
+  emoji: string;
 };
 
 export type NaverAllSearchResponse = {
@@ -103,6 +103,7 @@ export default async function handler(
             lat: y,
             lng: x,
           },
+          emoji: rank,
         }) as NaverPlace,
     );
 
