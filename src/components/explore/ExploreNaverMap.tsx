@@ -12,6 +12,7 @@ import MpOverlay from '../shared/map/MpOverlay';
 import ExploreGeolocationButton from './ExploreGeolocationButton';
 import { exploreMapCenterState } from './exploreMapCenterState';
 import ExploreMapSearchButton from './ExploreMapSearchButton';
+import ExploreRestaurantsDrawer from './ExploreRestaurantsDrawer';
 
 export default function ExploreNaverMap() {
   const navermaps = useNavermaps();
@@ -78,6 +79,7 @@ export default function ExploreNaverMap() {
       >
         <ExploreGeolocationButton />
       </Stack>
+      <ExploreRestaurantsDrawer />
     </NaverMap>
   );
 }
