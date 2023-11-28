@@ -51,7 +51,9 @@ export default function ExploreNaverMap() {
     >
       {/* <Marker defaultPosition={new navermaps.LatLng(37.3595704, 127.105399)} /> */}
       {data?.data &&
-        data?.data.map((item) => <MpOverlay key={item.id} restaurant={item} />)}
+        data?.data
+          .reverse()
+          .map((item) => <MpOverlay key={item.id} restaurant={item} />)}
       <Box
         sx={{
           position: 'absolute',
