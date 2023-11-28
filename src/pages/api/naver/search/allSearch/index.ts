@@ -43,9 +43,26 @@ import { LatLng } from '@/components/shared/map/types';
 // x: '127.1127202';
 // y: '37.3690628';
 
+// "text": "영업 종료",
+//                             "emphasis": true,
+//                             "description": "영업종료",
+//                             "detailInfo": "16:30에 영업종료"
+
+// "context": [
+//   "근고기",
+//   "삼겹살",
+//   "연탄구이",
+//   "김치찌개",
+//   "흑돼지"
+// ],
+
+// "text": "오늘 휴무",
+//                             "emphasis": true,
+//                             "description": "정기휴무일 휴무",
+//                             "detailInfo": "매주 화요일 휴무"
+
 export type NaverPlace = {
   // category: ['한식', '육류,고기요리'];
-  // display: '효원식당 분당정자점';
   id: string;
   michelinGuide: {
     year: string;
@@ -54,11 +71,26 @@ export type NaverPlace = {
   } | null;
   name: string;
   // naverBookingUrl: 'https://booking.naver.com/booking/6/bizes/417748';
+  // hasNaverBooking: boolean;
   rank: string;
   // thumUrl: 'https://ldb-phinf.pstatic.net/20210210_227/16129467345886TMvb_JPEG/XGIsKCofQIHiAODeArFvIYRV.jpeg.jpg';
   latLng: LatLng;
+  address: string;
+  homePage: string;
+  microReview: string[];
+  businessStatus: {
+    status: {
+      text: string; // '영업 중';
+      detailInfo: string; // "22:00에 라스트오더"
+    };
+    businessHours: string; // "202311281700~202311282300",
+    breakTime: string;
+    lastOrder: string; // "202311282200"
+  };
+  thumUrls: string[];
+  context: string[];
 
-  emoji: string;
+  emoji: string; // TODO.
 };
 
 export type NaverAllSearchResponse = {
@@ -93,17 +125,31 @@ export default async function handler(
     const jsonData = await response.json();
 
     const data = jsonData.result.place.list.map(
-      ({ id, michelinGuide, name, rank, x, y }: any): NaverPlace =>
+      (item: any): NaverPlace =>
         ({
-          id: id,
-          michelinGuide: michelinGuide,
-          name: name,
-          rank: rank,
+          id: item.id,
+          michelinGuide: item.michelinGuide,
+          name: item.name,
+          rank: item.rank,
           latLng: {
-            lat: y,
-            lng: x,
+            lat: item.y,
+            lng: item.x,
           },
-          emoji: rank,
+          address: item.address,
+          homePage: item.homePage,
+          microReview: item.microReview,
+          businessStatus: {
+            status: {
+              text: item.businessStatus.status.text,
+              detailInfo: item.businessStatus.status.detailInfo,
+            },
+            businessHours: item.businessStatus.businessHours,
+            breakTime: item.businessStatus.breakTime,
+            lastOrder: item.businessStatus.lastOrder,
+          },
+          thumUrls: item.thumUrls,
+          context: item.context,
+          emoji: item.rank,
         }) as NaverPlace,
     );
 
