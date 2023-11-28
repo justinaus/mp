@@ -1,18 +1,66 @@
-import { Stack } from '@mui/material';
+import { Stack, Typography } from '@mui/material';
+import Image from 'next/image';
 
-// type RestaurantInfo = Pick<NaverPlace, 'id' | 'rank' | 'name' | 'michelinGuide'>
+import { BLUR_DATA_URL } from '@/constants/image';
+import { NaverPlace } from '@/pages/api/naver/search/allSearch';
 
-export default function RestaurantListItem() {
+export type RestaurantInfo = Pick<
+  NaverPlace,
+  | 'id'
+  | 'rank'
+  | 'name'
+  | 'michelinGuide'
+  | 'address'
+  | 'businessStatus'
+  | 'microReview'
+  | 'context'
+  | 'homePage'
+  | 'thumUrls'
+>;
+
+type Props = {
+  data: RestaurantInfo;
+};
+
+export default function RestaurantListItem({ data }: Props) {
+  const { name, rank, thumUrls } = data;
+
   return (
     <Stack spacing={4}>
       <Stack
         direction={'row'}
+        spacing={2}
         sx={{
           alignItems: 'center',
-          justifyContent: 'space-between',
         }}
       >
-        {/* <Typography variant="h2">{name}</Typography> */}
+        <Typography variant="subtitle2">{rank}</Typography>
+        <Typography variant="subtitle1">{name}</Typography>
+      </Stack>
+      <Stack
+        spacing={2}
+        direction="row"
+        sx={
+          {
+            // overflow: 'scroll',
+          }
+        }
+      >
+        {thumUrls.map((url) => (
+          <Image
+            key={url}
+            src={url}
+            alt="thumbnail"
+            width={80}
+            height={80}
+            placeholder="blur"
+            blurDataURL={BLUR_DATA_URL}
+            style={{
+              borderRadius: 16,
+              objectFit: 'cover',
+            }}
+          />
+        ))}
       </Stack>
     </Stack>
   );

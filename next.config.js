@@ -7,6 +7,16 @@ const nextConfig = {
   env: {
     NAVER_CLIENT_ID: process.env.NAVER_CLIENT_ID,
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '*.pstatic.net',
+        // port: '',
+        // pathname: '/account123/**',
+      },
+    ],
+  },
 };
 
 module.exports = withInterceptStdout(nextConfig, (text) =>

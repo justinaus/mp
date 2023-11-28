@@ -52,6 +52,7 @@ export default function ExploreNaverMap() {
       {/* <Marker defaultPosition={new navermaps.LatLng(37.3595704, 127.105399)} /> */}
       {data?.data &&
         data?.data
+          .slice()
           .reverse()
           .map((item) => <MpOverlay key={item.id} restaurant={item} />)}
       <Box
@@ -81,7 +82,7 @@ export default function ExploreNaverMap() {
       >
         <ExploreGeolocationButton />
       </Stack>
-      <ExploreRestaurantsDrawer />
+      <ExploreRestaurantsDrawer restaurants={data?.data || null} />
     </NaverMap>
   );
 }

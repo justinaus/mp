@@ -1,10 +1,18 @@
+import { Stack } from '@mui/material';
 import { useRecoilState } from 'recoil';
 
 import SwipeableEdgeDrawer from '@/pages/explore/SwipeableEdgeDrawer';
 
+import RestaurantListItem, {
+  RestaurantInfo,
+} from '../shared/restaurants/RestaurantListItem';
 import { exploreDrawerOpenState } from './exploreDrawerState';
 
-export default function ExploreRestaurantsDrawer() {
+type Props = {
+  restaurants: RestaurantInfo[] | null;
+};
+
+export default function ExploreRestaurantsDrawer({ restaurants }: Props) {
   const [exploreDrawerOpen, setExploreDrawerOpen] = useRecoilState(
     exploreDrawerOpenState,
   );
@@ -19,7 +27,11 @@ export default function ExploreRestaurantsDrawer() {
       onOpen={toggleDrawer(true)}
       onClose={toggleDrawer(false)}
     >
-      123
+      <Stack spacing={4}>
+        {restaurants?.map((restaurant) => (
+          <RestaurantListItem key={restaurant.id} data={restaurant} />
+        ))}
+      </Stack>
     </SwipeableEdgeDrawer>
   );
 }
