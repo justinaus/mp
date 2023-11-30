@@ -27,7 +27,7 @@ export default function ExploreRestaurantsDrawer({ restaurants }: Props) {
       onOpen={toggleDrawer(true)}
       onClose={toggleDrawer(false)}
     >
-      <Stack spacing={4}>
+      <Stack spacing={8}>
         {restaurants?.map((restaurant) => (
           <RestaurantListItem key={restaurant.id} data={restaurant} />
         ))}

@@ -7,7 +7,7 @@ import SwipeableDrawer, {
 } from '@mui/material/SwipeableDrawer';
 import * as React from 'react';
 
-const drawerBleeding = 56;
+export const drawerBleeding = 56;
 
 const iOS =
   typeof navigator !== 'undefined' &&
@@ -72,7 +72,7 @@ export default function SwipeableEdgeDrawer({
             // boxShadow: '0px -4px 16px rgba(0,0,0,0.1)',
             boxShadow: '0px -4px 4px rgba(0,0,0,0.06)',
 
-            height: drawerBleeding,
+            height: drawerBleeding + 1, // 빈 공간 보여서..
           }}
         >
           <Puller />

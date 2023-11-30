@@ -49,7 +49,7 @@ export default function RestaurantListItem({
   }, [businessStatus.status]);
 
   return (
-    <Stack spacing={4}>
+    <Stack spacing={2}>
       <Stack
         direction={'row'}
         spacing={2}
@@ -62,8 +62,12 @@ export default function RestaurantListItem({
       </Stack>
       {statusText && <Typography>{statusText}</Typography>}
       <Typography>{address}</Typography>
-      {microReview.length && <Typography>{microReview.join(' | ')}</Typography>}
-      {context.length && <Typography>{context.join(' | ')}</Typography>}
+      {microReview.length ? (
+        <Typography className="line-clamp-2">
+          {microReview.join(' | ')}
+        </Typography>
+      ) : null}
+      {context.length ? <Typography>{context.join(' | ')}</Typography> : null}
       <Links naverId={id} homePage={homePage} />
       <Stack
         spacing={2}

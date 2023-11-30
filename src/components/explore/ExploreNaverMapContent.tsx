@@ -21,8 +21,7 @@ export default function ExploreNaverMapContent() {
         query: '음식점',
         type: 'all',
         searchCoord: `${mapCenter.lng};${mapCenter.lat}`,
-        page: '2',
-        display: '100',
+        // page: '2',
         // boundary
       };
 
