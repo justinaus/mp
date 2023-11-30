@@ -7,7 +7,10 @@ import SwipeableDrawer, {
 } from '@mui/material/SwipeableDrawer';
 import * as React from 'react';
 
-export const drawerBleeding = 56;
+export const drawerBleeding = 150;
+const headerHeight = 30;
+const contentMarginTop = drawerBleeding - headerHeight;
+const contentTotalHeight = 500;
 
 const iOS =
   typeof navigator !== 'undefined' &&
@@ -31,7 +34,8 @@ export default function SwipeableEdgeDrawer({
       <Global
         styles={{
           '.MuiDrawer-root > .MuiPaper-root': {
-            height: `calc(70% - ${drawerBleeding}px)`,
+            // height: `calc(70% - ${drawerBleeding}px)`,
+            height: contentTotalHeight - contentMarginTop,
             overflow: 'visible',
           },
           '.MuiDrawer-root > .MuiBackdrop-root': {
@@ -39,9 +43,6 @@ export default function SwipeableEdgeDrawer({
           },
         }}
       />
-      {/* <Box sx={{ textAlign: 'center', pt: 1 }}>
-        <Button onClick={toggleDrawer(true)}>Open</Button>
-      </Box> */}
       <SwipeableDrawer
         anchor="bottom"
         open={open}
@@ -72,7 +73,7 @@ export default function SwipeableEdgeDrawer({
             // boxShadow: '0px -4px 16px rgba(0,0,0,0.1)',
             boxShadow: '0px -4px 4px rgba(0,0,0,0.06)',
 
-            height: drawerBleeding + 1, // 빈 공간 보여서..
+            height: headerHeight + 1, // 빈 공간 보여서..
           }}
         >
           <Puller />
@@ -83,11 +84,19 @@ export default function SwipeableEdgeDrawer({
         <StyledBox
           sx={{
             px: 4,
-            pb: 4,
-            height: '100%',
+            pb: 8,
+            // height: '100%',
+            height: contentTotalHeight,
             overflow: 'auto',
+            marginTop: `-${contentMarginTop}px`,
+            visibility: 'visible',
           }}
         >
+          {/* <Box
+            sx={{
+              backgroundColor: '#ff0000',
+            }}
+          > */}
           {children}
         </StyledBox>
       </SwipeableDrawer>
