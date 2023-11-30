@@ -10,7 +10,8 @@ import * as React from 'react';
 export const drawerBleeding = 150;
 const headerHeight = 30;
 const contentMarginTop = drawerBleeding - headerHeight;
-const contentTotalHeight = 500;
+// const contentTotalHeight = 500;
+const contentTotalHeightPercent = '70%';
 
 const iOS =
   typeof navigator !== 'undefined' &&
@@ -35,7 +36,8 @@ export default function SwipeableEdgeDrawer({
         styles={{
           '.MuiDrawer-root > .MuiPaper-root': {
             // height: `calc(70% - ${drawerBleeding}px)`,
-            height: contentTotalHeight - contentMarginTop,
+            // height: contentTotalHeight - contentMarginTop,
+            height: `calc(${contentTotalHeightPercent} - ${contentMarginTop}px)`,
             overflow: 'visible',
           },
           '.MuiDrawer-root > .MuiBackdrop-root': {
@@ -86,7 +88,8 @@ export default function SwipeableEdgeDrawer({
             px: 4,
             pb: 8,
             // height: '100%',
-            height: contentTotalHeight,
+            // height: contentTotalHeight,
+            height: `calc(100% + ${contentMarginTop}px)`,
             overflow: 'auto',
             marginTop: `-${contentMarginTop}px`,
             visibility: 'visible',
