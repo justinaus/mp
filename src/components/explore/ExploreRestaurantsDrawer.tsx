@@ -6,7 +6,7 @@ import SwipeableEdgeDrawer from '@/pages/explore/SwipeableEdgeDrawer';
 import RestaurantListItem, {
   RestaurantInfo,
 } from '../shared/restaurants/RestaurantListItem';
-import { exploreDrawerOpenState } from './exploreDrawerState';
+import { exploreDrawerOpenState } from './exploreState';
 
 type Props = {
   restaurants: RestaurantInfo[] | null;

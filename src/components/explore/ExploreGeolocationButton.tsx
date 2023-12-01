@@ -3,7 +3,7 @@ import { useSetRecoilState } from 'recoil';
 
 import GeolocationButton from '../shared/map/GeolocationButton';
 import { LatLng } from '../shared/map/types';
-import { exploreMapCenterState } from './exploreMapCenterState';
+import { exploreMapCenterState } from './exploreState';
 
 export default function ExploreGeolocationButton() {
   const setExploreMapCenter = useSetRecoilState(exploreMapCenterState);

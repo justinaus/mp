@@ -3,7 +3,7 @@ import { useMap } from 'react-naver-maps';
 import { useSetRecoilState } from 'recoil';
 
 import MapSearchButton from '../shared/map/MapSearchButton';
-import { exploreMapCenterState } from './exploreMapCenterState';
+import { exploreMapCenterState } from './exploreState';
 
 export default function ExploreMapSearchButton() {
   const map = useMap();

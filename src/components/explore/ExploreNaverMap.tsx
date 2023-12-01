@@ -4,8 +4,8 @@ import { useRecoilValue } from 'recoil';
 
 import { getIsMobileDevice } from '@/utils/device';
 
-import { exploreMapCenterState } from './exploreMapCenterState';
 import ExploreNaverMapContent from './ExploreNaverMapContent';
+import { exploreMapCenterState } from './exploreState';
 
 export default function ExploreNaverMap() {
   const navermaps = useNavermaps();

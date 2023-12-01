@@ -8,9 +8,9 @@ import { NaverAllSearchResponse } from '@/pages/api/naver/search/allSearch';
 
 import MpOverlay from '../shared/map/MpOverlay';
 import ExploreGeolocationButton from './ExploreGeolocationButton';
-import { exploreMapCenterState } from './exploreMapCenterState';
 import ExploreMapSearchButton from './ExploreMapSearchButton';
 import ExploreRestaurantsDrawer from './ExploreRestaurantsDrawer';
+import { exploreMapCenterState } from './exploreState';
 
 export default function ExploreNaverMapContent() {
   const mapCenter = useRecoilValue(exploreMapCenterState);

@@ -21,3 +21,8 @@ export const exploreMapCenterState = atom<
   },
   effects_UNSTABLE: [persistExploreMapCenter],
 });
+
+export const exploreDrawerOpenState = atom<boolean>({
+  key: 'exploreDrawerOpenState',
+  default: false,
+});
