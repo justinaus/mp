@@ -3,10 +3,10 @@ import { useSetRecoilState } from 'recoil';
 
 import GeolocationButton from '../shared/map/GeolocationButton';
 import { LatLng } from '../shared/map/types';
-import { exploreMapCenterState } from './exploreState';
+import { exploreMapCenterAndZoomState } from './exploreState';
 
 export default function ExploreGeolocationButton() {
-  const setExploreMapCenter = useSetRecoilState(exploreMapCenterState);
+  const setExploreMapCenter = useSetRecoilState(exploreMapCenterAndZoomState);
 
   const handleGetGeolocationPosition = useCallback(
     (latLng: LatLng) => {

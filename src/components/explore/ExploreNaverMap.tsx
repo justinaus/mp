@@ -5,12 +5,12 @@ import { useRecoilValue } from 'recoil';
 import { getIsMobileDevice } from '@/utils/device';
 
 import ExploreNaverMapContent from './ExploreNaverMapContent';
-import { exploreMapCenterState } from './exploreState';
+import { exploreMapCenterAndZoomState } from './exploreState';
 
 export default function ExploreNaverMap() {
   const navermaps = useNavermaps();
 
-  const mapCenter = useRecoilValue(exploreMapCenterState);
+  const mapCenter = useRecoilValue(exploreMapCenterAndZoomState);
 
   const center = useMemo(() => {
     return new navermaps.LatLng(mapCenter.lat, mapCenter.lng);

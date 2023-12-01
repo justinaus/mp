@@ -3,12 +3,12 @@ import { useMap } from 'react-naver-maps';
 import { useSetRecoilState } from 'recoil';
 
 import MapSearchButton from '../shared/map/MapSearchButton';
-import { exploreMapCenterState } from './exploreState';
+import { exploreMapCenterAndZoomState } from './exploreState';
 
 export default function ExploreMapSearchButton() {
   const map = useMap();
 
-  const setExploreMapCenter = useSetRecoilState(exploreMapCenterState);
+  const setExploreMapCenter = useSetRecoilState(exploreMapCenterAndZoomState);
 
   const handleClick = useCallback(() => {
     if (!map) return;

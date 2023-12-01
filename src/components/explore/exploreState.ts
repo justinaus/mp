@@ -5,21 +5,21 @@ import { recoilPersist } from '@/utils/persistState';
 
 import { LatLng } from '../shared/map/types';
 
-const { persistAtom: persistExploreMapCenter } = recoilPersist({
-  key: 'persistHomeMapCenter',
+const { persistAtom: persistExploreMapCenterAndZoom } = recoilPersist({
+  key: 'persistExploreMapCenterAndZoom',
 });
-export const exploreMapCenterState = atom<
+export const exploreMapCenterAndZoomState = atom<
   LatLng & {
     zoom: number;
   }
 >({
-  key: 'exploreMapCenterState',
+  key: 'exploreMapCenterAndZoomState',
   default: {
     lat: DEFAULT_LAT_LNG.lat,
     lng: DEFAULT_LAT_LNG.lng,
     zoom: DEFAULT_MAP_ZOOM,
   },
-  effects_UNSTABLE: [persistExploreMapCenter],
+  effects_UNSTABLE: [persistExploreMapCenterAndZoom],
 });
 
 export const exploreDrawerOpenState = atom<boolean>({
