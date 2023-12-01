@@ -5,21 +5,32 @@ import { useRecoilValue } from 'recoil';
 import { getIsMobileDevice } from '@/utils/device';
 
 import ExploreNaverMapContent from './ExploreNaverMapContent';
-import { exploreMapCenterAndZoomState } from './exploreState';
+import { exploreMapDefaultCenterAndZoomState } from './exploreState';
 
 export default function ExploreNaverMap() {
   const navermaps = useNavermaps();
 
-  const mapCenter = useRecoilValue(exploreMapCenterAndZoomState);
+  const mapDefaultCenterAndZoom = useRecoilValue(
+    exploreMapDefaultCenterAndZoomState,
+  );
 
-  const center = useMemo(() => {
-    return new navermaps.LatLng(mapCenter.lat, mapCenter.lng);
-  }, [mapCenter.lat, mapCenter.lng, navermaps.LatLng]);
+  const defaultCenter = useMemo(() => {
+    return new navermaps.LatLng(
+      mapDefaultCenterAndZoom.lat,
+      mapDefaultCenterAndZoom.lng,
+    );
+  }, [
+    mapDefaultCenterAndZoom.lat,
+    mapDefaultCenterAndZoom.lng,
+    navermaps.LatLng,
+  ]);
 
   return (
     <NaverMap
-      center={center}
-      zoom={mapCenter.zoom}
+      defaultCenter={defaultCenter}
+      defaultZoom={mapDefaultCenterAndZoom.zoom}
+      // onCenterChanged={handleChangeCenter}
+      // onZoomChanged={handleChangeZoom}
       zoomControl={!getIsMobileDevice()}
       zoomControlOptions={{
         position: navermaps.Position.LEFT_BOTTOM,
