@@ -26,3 +26,16 @@ export const exploreDrawerOpenState = atom<boolean>({
   key: 'exploreDrawerOpenState',
   default: false,
 });
+
+type QueryParams = {
+  query: '음식점'; // TODO. 유형 추가 예정.
+  type: 'all';
+  page: number;
+  center: LatLng;
+  boundary: string | null;
+};
+
+export const exploreQueryParamsState = atom<QueryParams | null>({
+  key: 'exploreQueryParamsState',
+  default: null,
+});

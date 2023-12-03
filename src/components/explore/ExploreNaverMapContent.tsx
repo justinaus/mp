@@ -1,58 +1,80 @@
 import { Box, Stack } from '@mui/material';
+import { useQuery } from '@tanstack/react-query';
+import queryString from 'query-string';
+import { useEffect } from 'react';
+import { useMap } from 'react-naver-maps';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
+import { NaverAllSearchResponse } from '@/pages/api/naver/search/allSearch';
+
+import MpOverlay from '../shared/map/MpOverlay';
 import ExploreGeolocationButton from './ExploreGeolocationButton';
 import ExploreMapSearchButton from './ExploreMapSearchButton';
+import ExploreRestaurantsDrawer from './ExploreRestaurantsDrawer';
+import {
+  exploreMapDefaultCenterAndZoomState,
+  exploreQueryParamsState,
+} from './exploreState';
 
 export default function ExploreNaverMapContent() {
-  // const mapCenter = useRecoilValue(exploreMapCenterState);
+  const map = useMap();
 
-  // const map = useMap();
+  const [queryParams, setQueryParams] = useRecoilState(exploreQueryParamsState);
 
-  // // center도 지도에 따라서??
-  // // 클릭 시, params state를 만들고 그걸 변경.
+  const mapDefaultCenterAndZoom = useRecoilValue(
+    exploreMapDefaultCenterAndZoomState,
+  );
 
-  // // boundary: 127.01109044483923;37.28124946324532;127.19148226485783;37.41253785846415
+  useEffect(() => {
+    let boundary: string | null = null;
 
-  // const { data } = useQuery<NaverAllSearchResponse>({
-  //   queryKey: ['naver/search/allSearch', mapCenter.lng, mapCenter.lat],
-  //   queryFn: () => {
-  //     let boundary: string | null = null;
+    if (map) {
+      const bounds = map.getBounds();
 
-  //     if (map) {
-  //       const bounds = map.getBounds();
+      const arr = [bounds.minX(), bounds.minY(), bounds.maxX(), bounds.maxY()];
 
-  //       const arr = [
-  //         bounds.minX(),
-  //         bounds.minY(),
-  //         bounds.maxX(),
-  //         bounds.maxY(),
-  //       ];
+      boundary = arr.join(';');
+    }
 
-  //       boundary = arr.join(';');
-  //     }
+    setQueryParams((oldValue) => ({
+      page: 1,
+      query: oldValue?.query || '음식점',
+      type: oldValue?.type || 'all',
+      center: {
+        lat: mapDefaultCenterAndZoom.lat,
+        lng: mapDefaultCenterAndZoom.lng,
+      },
+      boundary: boundary,
+    }));
+  }, [map, mapDefaultCenterAndZoom, setQueryParams]);
 
-  //     const obj = {
-  //       query: '음식점',
-  //       type: 'all',
-  //       searchCoord: `${mapCenter.lng};${mapCenter.lat}`,
-  //       // page: '2',
-  //       boundary: boundary,
-  //     };
+  const { data } = useQuery<NaverAllSearchResponse>({
+    queryKey: ['naver/search/allSearch', queryParams],
+    queryFn: () => {
+      if (!queryParams) return Promise.resolve(null);
 
-  //     return fetch(
-  //       `/api/naver/search/allSearch?${queryString.stringify(obj)}`,
-  //     ).then((res) => res.json());
-  //   },
-  // });
+      const obj = {
+        query: '음식점',
+        type: 'all',
+        searchCoord: `${queryParams.center.lng};${queryParams.center.lat}`,
+        page: queryParams.page,
+        boundary: queryParams.boundary,
+      };
+
+      return fetch(
+        `/api/naver/search/allSearch?${queryString.stringify(obj)}`,
+      ).then((res) => res.json());
+    },
+  });
 
   return (
     <>
       {/* <Marker defaultPosition={new navermaps.LatLng(37.3595704, 127.105399)} /> */}
-      {/* {data?.data &&
+      {data?.data &&
         data?.data
           .slice()
           .reverse()
-          .map((item) => <MpOverlay key={item.id} restaurant={item} />)} */}
+          .map((item) => <MpOverlay key={item.id} restaurant={item} />)}
       <Box
         sx={{
           position: 'absolute',
@@ -80,7 +102,7 @@ export default function ExploreNaverMapContent() {
       >
         <ExploreGeolocationButton />
       </Stack>
-      {/* <ExploreRestaurantsDrawer restaurants={data?.data || null} /> */}
+      <ExploreRestaurantsDrawer restaurants={data?.data || null} />
     </>
   );
 }
