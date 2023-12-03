@@ -6,8 +6,10 @@ import { useMap } from 'react-naver-maps';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
 import { NaverAllSearchResponse } from '@/pages/api/naver/search/allSearch';
+import { getIsMobileDevice } from '@/utils/device';
 
 import MpOverlay from '../shared/map/MpOverlay';
+import ExploreDrawerOpenButton from './buttons/ExploreDrawerOpenButton';
 import ExploreGeolocationButton from './buttons/ExploreGeolocationButton';
 import ExploreMapSearchButton from './buttons/ExploreMapSearchButton';
 import ExploreRestaurantsDrawer from './ExploreRestaurantsDrawer';
@@ -67,6 +69,8 @@ export default function ExploreNaverMapContent() {
     },
   });
 
+  const isMobile = getIsMobileDevice();
+
   return (
     <>
       {/* <Marker defaultPosition={new navermaps.LatLng(37.3595704, 127.105399)} /> */}
@@ -102,6 +106,21 @@ export default function ExploreNaverMapContent() {
       >
         <ExploreGeolocationButton />
       </Stack>
+      {!isMobile && (
+        <Box
+          sx={{
+            position: 'absolute',
+            bottom: 20,
+            // paddingBottom: 4,
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'center',
+            zIndex: 100,
+          }}
+        >
+          <ExploreDrawerOpenButton />
+        </Box>
+      )}
       <ExploreRestaurantsDrawer restaurants={data?.data || null} />
     </>
   );

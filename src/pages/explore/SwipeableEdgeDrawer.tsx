@@ -7,6 +7,8 @@ import SwipeableDrawer, {
 } from '@mui/material/SwipeableDrawer';
 import * as React from 'react';
 
+import { getIsMobileDevice } from '@/utils/device';
+
 export const drawerBleeding = 150;
 const headerHeight = 30;
 const contentMarginTop = drawerBleeding - headerHeight;
@@ -30,6 +32,8 @@ export default function SwipeableEdgeDrawer({
   onOpen,
   ...rest
 }: Props) {
+  const isMobile = getIsMobileDevice();
+
   return (
     <>
       <Global
@@ -51,7 +55,7 @@ export default function SwipeableEdgeDrawer({
         onClose={onClose}
         onOpen={onOpen}
         swipeAreaWidth={drawerBleeding}
-        disableSwipeToOpen={false}
+        disableSwipeToOpen={!isMobile}
         ModalProps={{
           keepMounted: true,
         }}

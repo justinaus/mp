@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 import { useMap } from 'react-naver-maps';
 import { useSetRecoilState } from 'recoil';
 
-import MapSearchButton from '../../shared/map/MapSearchButton';
+import MapSearchButton from '../../shared/map/buttons/MapSearchButton';
 import { exploreMapDefaultCenterAndZoomState } from '../exploreState';
 
 export default function ExploreMapSearchButton() {
