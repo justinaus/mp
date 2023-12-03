@@ -133,7 +133,7 @@ export default async function handler(
     const jsonData = await response.json();
 
     const data = jsonData.result.place.list.map(
-      (item: any, index): NaverPlace =>
+      (item: any, index: number): NaverPlace =>
         ({
           id: item.id,
           michelinGuide: item.michelinGuide,
@@ -157,7 +157,9 @@ export default async function handler(
           },
           thumUrls: item.thumUrls,
           context: item.context,
-          emoji: (Number(req.query.page) - 1) * COUNT_PER_PAGE + index + 1, // TODO.
+          emoji: String(
+            (Number(req.query.page) - 1) * COUNT_PER_PAGE + index + 1,
+          ), // TODO.
         }) as NaverPlace,
     );
 
