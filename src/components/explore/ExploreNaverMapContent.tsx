@@ -56,8 +56,8 @@ export default function ExploreNaverMapContent() {
       if (!queryParams) return Promise.resolve(null);
 
       const obj = {
-        query: '음식점',
-        type: 'all',
+        query: queryParams.query,
+        type: queryParams.type,
         searchCoord: `${queryParams.center.lng};${queryParams.center.lat}`,
         page: queryParams.page,
         boundary: queryParams.boundary,

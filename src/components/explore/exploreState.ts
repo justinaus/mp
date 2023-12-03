@@ -28,8 +28,8 @@ export const exploreDrawerOpenState = atom<boolean>({
 });
 
 type QueryParams = {
-  query: '음식점'; // TODO. 유형 추가 예정.
-  type: 'all';
+  query: string;
+  type: 'all'; // TODO.
   page: number;
   center: LatLng;
   boundary: string | null;
