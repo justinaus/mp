@@ -1,9 +1,9 @@
 import { useCallback } from 'react';
 import { useSetRecoilState } from 'recoil';
 
-import GeolocationButton from '../shared/map/GeolocationButton';
-import { LatLng } from '../shared/map/types';
-import { exploreMapDefaultCenterAndZoomState } from './exploreState';
+import GeolocationButton from '../../shared/map/buttons/GeolocationButton';
+import { LatLng } from '../../shared/map/types';
+import { exploreMapDefaultCenterAndZoomState } from '../exploreState';
 
 export default function ExploreGeolocationButton() {
   const setExploreMapCenter = useSetRecoilState(

@@ -8,8 +8,8 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { NaverAllSearchResponse } from '@/pages/api/naver/search/allSearch';
 
 import MpOverlay from '../shared/map/MpOverlay';
-import ExploreGeolocationButton from './ExploreGeolocationButton';
-import ExploreMapSearchButton from './ExploreMapSearchButton';
+import ExploreGeolocationButton from './buttons/ExploreGeolocationButton';
+import ExploreMapSearchButton from './buttons/ExploreMapSearchButton';
 import ExploreRestaurantsDrawer from './ExploreRestaurantsDrawer';
 import {
   exploreMapDefaultCenterAndZoomState,

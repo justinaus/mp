@@ -1,8 +1,8 @@
 import MyLocationIcon from '@mui/icons-material/MyLocation';
 import { useCallback } from 'react';
 
-import TransparentOutlinedIconButton from '../buttons/TransparentOutlinedIconButton';
-import { LatLng } from './types';
+import TransparentOutlinedIconButton from '../../buttons/TransparentOutlinedIconButton';
+import { LatLng } from '../types';
 
 type Props = {
   onGetGeolocationPosition: (latLng: LatLng) => void;
