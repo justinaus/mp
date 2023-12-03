@@ -1,7 +1,7 @@
 import { Box, Stack } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 import queryString from 'query-string';
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useMap } from 'react-naver-maps';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
@@ -69,6 +69,23 @@ export default function ExploreNaverMapContent() {
     },
   });
 
+  const handleNext = useCallback(() => {
+    setQueryParams((oldValue) => ({
+      page: oldValue?.page ? oldValue.page + 1 : 1,
+      query: oldValue?.query || '음식점',
+      type: oldValue?.type || 'all',
+      center: {
+        lat: mapDefaultCenterAndZoom.lat,
+        lng: mapDefaultCenterAndZoom.lng,
+      },
+      boundary: oldValue?.boundary || null,
+    }));
+  }, [
+    mapDefaultCenterAndZoom.lat,
+    mapDefaultCenterAndZoom.lng,
+    setQueryParams,
+  ]);
+
   const isMobile = getIsMobileDevice();
 
   return (
@@ -121,7 +138,11 @@ export default function ExploreNaverMapContent() {
           <ExploreDrawerOpenButton />
         </Box>
       )}
-      <ExploreRestaurantsDrawer restaurants={data?.data || null} />
+      <ExploreRestaurantsDrawer
+        restaurants={data?.data || null}
+        hasMore={data?.pagination ? data?.pagination?.hasMore : null}
+        onNext={handleNext}
+      />
     </>
   );
 }

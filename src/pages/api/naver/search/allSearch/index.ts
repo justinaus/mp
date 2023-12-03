@@ -97,7 +97,15 @@ export type NaverAllSearchResponse = {
   data?: NaverPlace[];
   success: boolean;
   message?: string;
+  pagination?: {
+    totalCount: number;
+    page: number;
+    totalPage: number;
+    hasMore: boolean;
+  };
 };
+
+const COUNT_PER_PAGE = 20;
 
 export default async function handler(
   req: NextApiRequest,
@@ -125,7 +133,7 @@ export default async function handler(
     const jsonData = await response.json();
 
     const data = jsonData.result.place.list.map(
-      (item: any): NaverPlace =>
+      (item: any, index): NaverPlace =>
         ({
           id: item.id,
           michelinGuide: item.michelinGuide,
@@ -149,13 +157,22 @@ export default async function handler(
           },
           thumUrls: item.thumUrls,
           context: item.context,
-          emoji: item.rank,
+          emoji: (Number(req.query.page) - 1) * COUNT_PER_PAGE + index + 1, // TODO.
         }) as NaverPlace,
     );
+
+    const { totalCount, page } = jsonData.result.place;
+    const totalPage = Math.ceil(totalCount / COUNT_PER_PAGE);
 
     res.status(200).json({
       success: true,
       data: data,
+      pagination: {
+        totalCount: totalCount,
+        page: page,
+        totalPage: totalPage,
+        hasMore: totalPage > page,
+      },
     });
   } catch (err) {
     res.status(response.status).json({

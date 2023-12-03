@@ -88,6 +88,7 @@ export default function SwipeableEdgeDrawer({
           </Typography> */}
         </StyledBox>
         <StyledBox
+          id="scrollableDiv"
           sx={{
             px: 4,
             pb: 8,
@@ -99,11 +100,6 @@ export default function SwipeableEdgeDrawer({
             visibility: 'visible',
           }}
         >
-          {/* <Box
-            sx={{
-              backgroundColor: '#ff0000',
-            }}
-          > */}
           {children}
         </StyledBox>
       </SwipeableDrawer>

@@ -10,7 +10,7 @@ import Links from './Links';
 export type RestaurantInfo = Pick<
   NaverPlace,
   | 'id'
-  | 'rank'
+  | 'emoji'
   | 'name'
   | 'michelinGuide'
   | 'address'
@@ -29,7 +29,7 @@ export default function RestaurantListItem({
   data: {
     id,
     name,
-    rank,
+    emoji,
     thumUrls,
     address,
     businessStatus,
@@ -57,7 +57,7 @@ export default function RestaurantListItem({
           alignItems: 'center',
         }}
       >
-        <Typography variant="subtitle2">{rank}</Typography>
+        <Typography variant="subtitle2">{emoji}</Typography>
         <Typography variant="subtitle1">{name}</Typography>
       </Stack>
       {statusText && <Typography>{statusText}</Typography>}
