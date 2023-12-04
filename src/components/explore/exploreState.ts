@@ -30,7 +30,7 @@ export const exploreDrawerOpenState = atom<boolean>({
 type QueryParams = {
   query: string;
   type: 'all'; // TODO.
-  page: number;
+  // page: number;
   center: LatLng;
   boundary: string | null;
 };

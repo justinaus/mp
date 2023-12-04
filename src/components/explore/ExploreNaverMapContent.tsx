@@ -1,7 +1,7 @@
 import { Box, Stack } from '@mui/material';
-import { useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery } from '@tanstack/react-query';
 import queryString from 'query-string';
-import { useCallback, useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useMap } from 'react-naver-maps';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
@@ -50,16 +50,26 @@ export default function ExploreNaverMapContent() {
     }));
   }, [map, mapDefaultCenterAndZoom, setQueryParams]);
 
-  const { data } = useQuery<NaverAllSearchResponse>({
-    queryKey: ['naver/search/allSearch', queryParams],
-    queryFn: () => {
+  const { data, fetchNextPage } = useInfiniteQuery({
+    queryKey: [
+      'naver/search/allSearch',
+      queryParams,
+      queryParams?.query,
+      queryParams?.type,
+      queryParams?.center.lng,
+      queryParams?.center.lat,
+      // queryParams?.page,
+      queryParams?.boundary,
+    ],
+    queryFn: ({ pageParam }): Promise<NaverAllSearchResponse | null> => {
       if (!queryParams) return Promise.resolve(null);
 
       const obj = {
         query: queryParams.query,
         type: queryParams.type,
         searchCoord: `${queryParams.center.lng};${queryParams.center.lat}`,
-        page: queryParams.page,
+        // page: queryParams.page,
+        page: pageParam,
         boundary: queryParams.boundary,
       };
 
@@ -67,32 +77,40 @@ export default function ExploreNaverMapContent() {
         `/api/naver/search/allSearch?${queryString.stringify(obj)}`,
       ).then((res) => res.json());
     },
+    initialPageParam: 1,
+    getNextPageParam: (lastPage) =>
+      lastPage?.pagination?.page ? lastPage?.pagination?.page + 1 : 1,
   });
 
-  const handleNext = useCallback(() => {
-    setQueryParams((oldValue) => ({
-      page: oldValue?.page ? oldValue.page + 1 : 1,
-      query: oldValue?.query || '음식점',
-      type: oldValue?.type || 'all',
-      center: {
-        lat: mapDefaultCenterAndZoom.lat,
-        lng: mapDefaultCenterAndZoom.lng,
-      },
-      boundary: oldValue?.boundary || null,
-    }));
-  }, [
-    mapDefaultCenterAndZoom.lat,
-    mapDefaultCenterAndZoom.lng,
-    setQueryParams,
-  ]);
+  const restaurantsAll = useMemo(() => {
+    if (!data) return null;
+
+    const arr = [];
+
+    for (const pageData of data?.pages) {
+      if (!pageData?.data) continue;
+
+      arr.push(...pageData.data);
+    }
+
+    return arr;
+  }, [data]);
+
+  const lastPagination = useMemo(() => {
+    if (!data) return null;
+    if (!data.pages.length) return null;
+
+    const last = data.pages[data.pages.length - 1];
+
+    return last?.pagination || null;
+  }, [data]);
 
   const isMobile = getIsMobileDevice();
 
   return (
     <>
-      {/* <Marker defaultPosition={new navermaps.LatLng(37.3595704, 127.105399)} /> */}
-      {data?.data &&
-        data?.data
+      {restaurantsAll &&
+        restaurantsAll
           .slice()
           .reverse()
           .map((item) => <MpOverlay key={item.id} restaurant={item} />)}
@@ -139,9 +157,9 @@ export default function ExploreNaverMapContent() {
         </Box>
       )}
       <ExploreRestaurantsDrawer
-        restaurants={data?.data || null}
-        hasMore={data?.pagination ? data?.pagination?.hasMore : null}
-        onNext={handleNext}
+        restaurants={restaurantsAll}
+        hasMore={lastPagination ? lastPagination.hasMore : null}
+        onNext={fetchNextPage}
       />
     </>
   );
