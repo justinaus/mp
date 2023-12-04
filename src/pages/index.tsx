@@ -1,9 +1,15 @@
 // import { Inter } from 'next/font/google'
 // const inter = Inter({ subsets: ['latin'] })
 import Button from '@mui/material/Button';
+import { useQuery } from '@tanstack/react-query';
 import Head from 'next/head';
 
 export default function Home() {
+  const { data } = useQuery({
+    queryKey: ['test'],
+    queryFn: () => fetch('/api/test').then((res) => res.json()),
+  });
+
   return (
     <>
       <Head>

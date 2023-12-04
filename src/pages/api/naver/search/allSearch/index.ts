@@ -132,7 +132,7 @@ export default async function handler(
   try {
     const jsonData = await response.json();
 
-    const data = jsonData.result.place.list.map(
+    const data: NaverPlace[] = jsonData.result.place.list.map(
       (item: any, index: number): NaverPlace =>
         ({
           id: item.id,
