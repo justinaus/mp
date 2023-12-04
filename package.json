@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "db-migrate": "env-cmd -f .env.local npx prisma migrate dev --preview-feature",
+    "db-studio": "env-cmd -f .env.local npx prisma studio"
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",
@@ -15,6 +17,7 @@
     "@mui/material": "^5.14.18",
     "@tanstack/react-query": "^5.8.4",
     "@tanstack/react-query-devtools": "^5.8.4",
+    "env-cmd": "^10.1.0",
     "next": "14.0.3",
     "next-intercept-stdout": "^1.0.1",
     "query-string": "^8.1.0",
