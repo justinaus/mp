@@ -72,19 +72,17 @@ export default function RestaurantListItem({
       <Stack
         spacing={2}
         direction="row"
-        sx={
-          {
-            // overflow: 'scroll',
-          }
-        }
+        sx={{
+          overflow: 'scroll',
+        }}
       >
         {thumUrls.map((url) => (
           <Image
             key={url}
             src={url}
             alt="thumbnail"
-            width={80}
-            height={80}
+            width={160}
+            height={160}
             placeholder="blur"
             blurDataURL={BLUR_DATA_URL}
             style={{
